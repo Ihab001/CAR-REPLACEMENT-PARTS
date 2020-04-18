@@ -1,0 +1,49 @@
+
+<ng-container *ngIf="cart$ | async as cart ">
+    <button 
+    *ngIf="cart.items.length" 
+    (click)="clearCart()"
+    type="button" class="btn btn-warning btn-sm">Clear Cart</button>
+<table class="table">
+  <thead >
+    <tr class="bg-warning">
+      <th></th>
+      <th scope="col">Product</th>
+      <th class="text-center" style="width:230px">Quantity</th>
+      <th class="text-center">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of cart.items">
+     <td>
+       <div [style.backgroundImage]="'url(' + item.imageurl + ')'" class="thumbnail">
+       </div>
+     </td>
+      <td>
+        {{
+        item.title
+        }}
+      </td>
+      <td style="width:20%">
+
+      <product-quantity [product]="item" [shopping-cart]="cart"></product-quantity>
+      </td>
+      <td class="text-center" style="color:forestgreen">{{item.totalPrice | currency :'EGP':true}}</td>
+   
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th scope="col">  <button 
+        *ngIf="cart.items.length"
+         routerLink="/check-out"
+         class="btn btn-success">CheckOut</button></th>
+      
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th class="text-center" style="color:rgb(29, 116, 29)">{{cart.totalPrice | currency :'EGP':true}}</th>
+    </tr>
+  </tfoot>
+</table>
+
+ </ng-container>

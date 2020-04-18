@@ -1,0 +1,232 @@
+<div *ngIf="x">
+    <div class="row" style="margin-left:9%">
+        <div class="col-md-6">
+            <form  #f="ngForm" (ngSubmit)="save(f.value)" ngNativeValidate>
+                <div class="form-group">
+                  <label for="title">Title</label>
+                  <input #title="ngModel" ngModel name="title" id="title" type="text" class="form-control" required>
+                  <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
+                    Title Is Required.
+                  </div>
+                </div>
+                <div class="form-group">
+                 
+                    <label for="price" >Price</label>
+                    <div class="input-group">
+                        
+                      </div>
+                  </div>
+                  <div class="form-group">
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"  >EGP</span>
+                      </div>
+                      <input  #price="ngModel" ngModel name="price" id="price" type="number" class="form-control" [min]="0" required >
+                
+                    
+                    </div>
+                    <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
+                      <div *ngIf="price.errors.required">Price Is Required</div>
+                      <div *ngIf="price.errors.min">Price Should be 0 or More EGPs</div>
+                      </div>
+                    </div>
+                   
+                    
+                  <div class="form-group">
+                      <label for="manufacturer">Manufacturer</label>
+                      <select #man="ngModel" ngModel name="manufacturer" (change)="selectChangeHandler($event)" id="manufacturer" type="number" class="form-control" required>
+                        <option disabled value="">Select</option>
+                        <option *ngFor="let m of Man$ | async" [value]="m.$key">{{m.$key}}</option>
+                        </select>
+                        <div class="alert alert-danger" *ngIf="man.touched && man.invalid">
+                            Manufacturer Is Required.
+                          </div>
+                          <div >
+                
+                          </div>
+                    </div>
+                    <div class="form-group" *ngIf="man.value!=''">
+                        <label for="model">Model</label>
+                        <select #model="ngModel"  ngModel name="model" (change)="selectChangeHandler2($event)" id="model" type="number" class="form-control" required>
+                          <option disabled value="">Select</option>
+                          <option *ngFor="let a of Brands$ | async" [value]="a.$key">{{a.$key}}</option>
+                          </select>
+                          <div class="alert alert-danger" *ngIf="model.touched && model.invalid">
+                            Model Is Required.
+                            </div>
+                            <div class="form-group" *ngIf=" model.value!=''">
+                                <label for="year">Year</label>
+                                <select #year="ngModel" ngModel name="year"   id="year" type="number" class="form-control" required>
+                                  <option disabled value="">Select</option>
+                                  <option  *ngFor="let b of Years$ | async" [value]="b.$key">{{b.$key}}</option>
+                                  </select>
+                                  <div class="alert alert-danger" *ngIf="year.touched && year.invalid">
+                                     Year Is Required.
+                                      </div>
+                              </div>
+                              <div class="form-group" *ngIf=" model.value!=''" >
+                                  <label for="shape">Shape</label>
+                                  <select #shape="ngModel" ngModel name="shape" id="shape" type="text" class="form-control" required>
+                                    <option disabled value="">Select</option>
+                                    <option *ngFor="let c of Shapes$ | async" [value]="c.$key">{{c.$key}}</option>
+                                    </select>
+                                    <div class="alert alert-danger" *ngIf="shape.touched && shape.invalid">
+                                        Shape Is Required.
+                                         </div>
+                                </div>
+                      </div>
+                     
+                      
+                      
+                    <div class="form-group">
+                        <label for="imageUrl">Image URL</label>
+                        <input  #imageurl="ngModel" ngModel name="imageurl" id="imageUrl" type="text" class="form-control" required url>
+                        <div class="alert alert-danger" *ngIf="imageurl.touched && imageurl.invalid">
+                          <div *ngIf=imageurl.errors.required>imageURL Is Required.</div>
+                          <div *ngIf=imageurl.errors.url>Please Enter a valid URL</div>
+                            
+                             </div>
+                      </div>
+                      <button type="submit"  class="btn btn-success my-2 my-sm-0">Save</button>
+                </form>
+        </div>
+        <div class="col-md-6">
+            <div *ngIf="title.value" class="card" style="width: 20rem;color:black">
+                <img *ngIf="imageurl.value" class="card-img-top" [src]="imageurl.value" style="height:320px">
+                <div class="card-body" style="background-color:whitesmoke">
+                  <h4 class="card-title"style="color:black" >{{title.value}}</h4>
+                  <p class="card-text" style="color:lightslategray">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p class="card-text" style="color:green">{{price.value | currency:'EGP':true}}</p>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{man.value}} </li>
+                  
+                  </ul>
+               
+                </div>
+               
+              </div>
+        </div>
+        
+        </div>
+</div>
+
+
+ 
+
+<div *ngIf="!x"> 
+    <div class="row" style="margin-left:9%">
+        <div class="col-md-6">
+            <form #f="ngForm" (ngSubmit)="save(f.value)">
+                <div class="form-group">
+                  <label for="title">Title</label>
+                  <input #title="ngModel" [(ngModel)]="product.title" name="title" id="title" type="text" class="form-control" required>
+                  <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
+                    Title Is Required.
+                  </div>
+                </div>
+                <div class="form-group">
+                 
+                    <label for="price">Price</label>
+                    <div class="input-group">
+                        
+                      </div>
+                  </div>
+                  <div class="form-group">
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" >EGP</span>
+                      </div>
+                      <input  #price="ngModel" [(ngModel)]="product.price" name="price" id="price" type="number" class="form-control" [min]="0" required >
+                
+                    
+                    </div>
+                    <div class="alert alert-danger" *ngIf="price.touched && price.invalid">
+                      <div *ngIf="price.errors.required">Price Is Required</div>
+                      <div *ngIf="price.errors.min">Price Should be 0 or More EGPs</div>
+                      </div>
+                    </div>
+                   
+                    
+                    <div class="form-group">
+                        <label for="manufacturer">Manufacturer</label>
+                        <select #koko #man="ngModel" ngModel name="manufacturer" (change)="selectChangeHandler($event)" id="manufacturer" type="number" class="form-control" required>
+                          <option disabled value="shhshs">Select</option>
+                          <option *ngFor="let m of Man$ | async" [value]="m.$key">{{m.$key}}</option>
+                          </select>
+                          <div class="alert alert-danger" *ngIf="man.touched && man.invalid">
+                              Manufacturer Is Required.
+                            </div>
+                            <div >
+                  
+                            </div>
+                      </div>
+                      <div class="form-group">
+                          <label for="model">Model</label>
+                          <select #model="ngModel"  ngModel name="model" (change)="selectChangeHandler2($event)" id="model" type="number" class="form-control" required>
+                            <option disabled value="">Select</option>
+                            <option *ngFor="let a of Brands$ | async" [value]="a.$key">{{a.$key}}</option>
+                            </select>
+                            <div class="alert alert-danger" *ngIf="model.touched && model.invalid">
+                              Model Is Required.
+                              </div>
+                              <div class="form-group" >
+                                  <label for="year">Year</label>
+                                  <select #year="ngModel" ngModel name="year"   id="year" type="number" class="form-control" required>
+                                    <option disabled value="">Select</option>
+                                    <option  *ngFor="let b of Years$ | async" [value]="b.$key">{{b.$key}}</option>
+                                    </select>
+                                    <div class="alert alert-danger" *ngIf="year.touched && year.invalid">
+                                       Year Is Required.
+                                        </div>
+                                </div>
+                                <div class="form-group"  >
+                                    <label for="shape">Shape</label>
+                                    <select #shape="ngModel" ngModel name="shape" id="shape" type="text" class="form-control" required>
+                                      <option disabled value="">Select</option>
+                                      <option *ngFor="let c of Shapes$ | async" [value]="c.$key">{{c.$key}}</option>
+                                      </select>
+                                      <div class="alert alert-danger" *ngIf="shape.touched && shape.invalid">
+                                          Shape Is Required.
+                                           </div>
+                                  </div>
+                        </div>
+                     
+                      
+                      
+                    <div class="form-group">
+                        <label for="imageUrl">Image URL</label>
+                        <input  #imageurl="ngModel" [(ngModel)]="product.imageurl" name="imageurl" id="imageUrl" type="text" class="form-control" required url>
+                        <div class="alert alert-danger" *ngIf="imageurl.touched && imageurl.invalid">
+                          <div *ngIf=imageurl.errors.required>imageURL Is Required.</div>
+                          <div *ngIf=imageurl.errors.url>Please Enter a valid URL</div>
+                            
+                             </div>
+                      </div>
+                      <button class="btn btn-success my-2 my-sm-0">Save</button>
+                </form>
+        </div>
+        <div class="col-md-6">
+            <div  class="card" style="width: 20rem;color:black">
+                <img class="card-img-top" [src]="product.imageurl" style="height:320px ; border:2px solid rgb(251, 255, 0)">
+                <div class="card-body" style="background-color:whitesmoke; border:2px solid rgb(251, 255, 0)">
+                  <h4 class="card-title"style="color:black" >{{product.title}}</h4>
+                  <p class="card-text" style="color:lightslategray">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <p class="card-text" style="color:green">{{product.price | currency:'EGP':true}}</p>
+                  <ul class="list-group list-group-flush">
+                      <li class="list-group-item">Manufacturer: {{product.manufacturer}}</li>
+                      <li class="list-group-item">Model: {{product.model}}</li>
+                      <li class="list-group-item">Shape: {{product.shape}}</li>
+                      <li class="list-group-item">Year: {{product.year}}</li>
+                    </ul>
+               
+                </div>
+               
+              </div>
+        </div>
+        
+        </div>
+        
+         
+        
+        
+</div>

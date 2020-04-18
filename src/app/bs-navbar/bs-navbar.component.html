@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-md navbar-light  fixed-top" style="background-color: #043457;" >
+    <a class="nav-link" routerLink="/">
+     
+      <img src="assets/logo.png" class="no-gutters" style="position:absolute;margin-left:-4%;margin-top:-4.5%" width="130" height="130"/>
+    </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse " id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto ">
+     
+        <li  class="nav-item" >
+            <a  style="color:white;margin-left:50px;" class="nav-link"  routerLink="/products">Browse Products</a>
+          </li>
+      <li  class="nav-item" >
+        <a  style="color:white;margin-left:50px;" class="nav-link"  routerLink="/my/orders">My Orders</a>
+      </li> 
+
+       <li  class="nav-item" >
+          <a  style="color:white;margin-left:50px;" class="nav-link"  routerLink="/shopping-cart">My Cart</a>
+        </li>
+
+    
+      <li  class="nav-item" >
+          <ng-container *ngIf="appUser">
+        <a  style="color:white;margin-left:50px;" class="nav-link"  routerLink="/my/profile">Profile</a>
+      </ng-container>
+      </li>
+    
+  
+       
+     
+      
+   <ng-template #anonymouseUser>
+        <li  class="nav-item" >
+          <a  style="color:white;margin-left:50px;" class="nav-link"  routerLink="/login">Login</a>
+        </li>
+        <li  class="nav-item" >
+            <a  style="color:white;margin-left:50px;" class="nav-link"  routerLink="/register">Register</a>
+          </li>
+      </ng-template>
+      <li ngbDropdown  *ngIf="appUser ; else anonymouseUser" ngbDropdown class="nav-item dropdown navbar-toggler-right " >
+        <a ngbDropdownToggle class=" nav-link dropdown-toggle " style="color:white;margin-left:50px;"  id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{appUser.name}}</a>
+        <div  ngbDropdownMenu class="dropdown-menu " aria-labelledby="dropdown01" >
+            <a class="dropdown-item" routerLink="/profile">My Profile</a>
+          <a class="dropdown-item" routerLink="/my/orders">My Orders</a>
+        <ng-container *ngIf="appUser.isAdmin">
+          <a class="dropdown-item" routerLink="admin/orders">Manage orders</a>
+          <a class="dropdown-item" routerLink="admin/products">Manage Products</a>
+          <a class="dropdown-item" routerLink="admin/products/new">Add New Product</a>
+        </ng-container>
+         
+          <a (click)="logout()"class="dropdown-item">Logout</a>
+        </div>
+      </li>
+    </ul>
+   
+  
+      
+           
+            <a class="nav-link" routerLink="/shopping-cart">
+              <span class="badge badge-success badge-pill"style="position:absolute" *ngIf="cart$ | async as cart"  >{{cart.totalItemsCount}}
+              </span>
+              <img src="assets/SC.png" width="40" height="40"/>
+            </a>
+         
+      
+  </div>
+</nav>

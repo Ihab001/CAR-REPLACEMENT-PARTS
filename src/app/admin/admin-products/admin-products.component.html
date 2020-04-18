@@ -1,0 +1,86 @@
+
+<p><button routerLink="/admin/products/new" class="btn btn-outline-success my-2 my-sm-0" >New Product</button></p>
+<p>
+
+    <input
+    #query
+    (keyup)="filter(query.value)"
+    type="text" class="form-control" placeholder="Search">
+</p>
+
+
+
+        <data-table 
+        [items]="items"
+        [itemCount]="itemCount"
+        (reload)="reloadItems($event)"
+
+        >
+        <data-table-column 
+            [property]="'title'"
+            [header]="'Title'"
+            [sortable]="true"
+            [resizable]="true"
+            >
+        </data-table-column>
+        <data-table-column
+            [property]="'price'"
+            [header]="'Price'"
+            [sortable]="true"
+            [resizable]="true"
+          
+            >
+            <ng-template #dataTableCell let-item="item">
+                   
+                {{item.price|currency:'EGP':true}}
+                </ng-template>
+        </data-table-column>
+        <data-table-column
+            [property]="'manufacturer'"
+            [header]="'Manuf'"
+            [sortable]="true"
+            [resizable]="true"
+            >
+        </data-table-column>
+        <data-table-column
+            [property]="'model'"
+            [header]="'Model'"
+            [sortable]="true"
+            [resizable]="true"
+            >
+        </data-table-column>
+        <data-table-column
+            [property]="'year'"
+            [header]="'Year'"
+            [sortable]="true"
+            [resizable]="true"
+            >
+        </data-table-column>
+     
+         
+        <data-table-column
+            [property]="'shape'"
+            [header]="'Shape'"
+            [sortable]="true"
+            [resizable]="true"
+            >
+          
+        </data-table-column>
+   
+        <data-table-column
+            [property]="'$key'"
+         
+            >
+            <ng-template #dataTableCell let-item="item">
+               
+                    <button [routerLink]="['/admin/products/',item.$key]" class="btn btn-outline-warning  my-2 my-sm-0" >   Edit   </button>
+                    <button (click)="delete(item.$key)" class="btn btn-outline-danger my-2 my-sm-0" >Delete</button>
+        
+                </ng-template>
+        </data-table-column>
+        
+        </data-table>
+
+        
+      
+

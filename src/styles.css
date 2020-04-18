@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+
+
+body { background:rgb(255, 255, 255) !important;color:rgb(0, 0, 0) }
+
+ /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
